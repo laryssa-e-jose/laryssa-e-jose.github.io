@@ -81,7 +81,15 @@ main {
 
   pointer-events: none;
 }
+.carta.saindo {
+  opacity: 1;
 
+  z-index: 4;
+
+  transform:
+    translateY(15px)
+    scale(0.94);
+}
 .carta.aberta {
   opacity: 1;
 
@@ -90,6 +98,8 @@ main {
   transform:
     translateY(-70px)
     scale(1);
+
+  animation: respirar-carta 3.6s ease-in-out infinite;
 }
 
 /* CONJUNTO COMPLETO DO ENVELOPE */

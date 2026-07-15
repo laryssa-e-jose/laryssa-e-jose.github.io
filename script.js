@@ -27,7 +27,11 @@ seloBotao.addEventListener("click", function () {
 
 
   /* 5. A carta sobe e passa para frente */
-  setTimeout(function () {
-    carta.classList.add("aberta");
-  }, 950);
-});
+setTimeout(function () {
+  carta.classList.add("saindo");
+}, 950);
+
+setTimeout(function () {
+  carta.classList.remove("saindo");
+  carta.classList.add("aberta");
+}, 1450);
