@@ -4,8 +4,8 @@
 
 :root {
   --verde: #003400;
-  --dourado: #b69052;
   --creme: #fff8e7;
+  --papel-envelope: #faebd8;
 }
 
 * {
@@ -14,6 +14,7 @@
 
 body {
   margin: 0;
+
   min-height: 100vh;
 
   display: flex;
@@ -28,10 +29,23 @@ body {
   font-family: "Cormorant Garamond", serif;
 
   overflow: hidden;
+
+  opacity: 1;
+
+  transition: opacity 0.45s ease;
 }
+
+/* SAÍDA PARA O SITE */
+
+body.saindo-site {
+  opacity: 0;
+}
+
+/* CONTEÚDO PRINCIPAL */
 
 main {
   width: 100%;
+
   padding: 20px;
 
   text-align: center;
@@ -53,7 +67,9 @@ main {
   align-items: center;
 }
 
-/* CARTA */
+/* =========================
+   CARTA
+========================= */
 
 .carta {
   position: absolute;
@@ -69,7 +85,9 @@ main {
   border-radius: 5px;
 
   filter:
-    drop-shadow(0 16px 25px rgba(0, 0, 0, 0.2));
+    drop-shadow(
+      0 16px 25px rgba(0, 0, 0, 0.2)
+    );
 
   transform:
     translateY(135px)
@@ -81,6 +99,9 @@ main {
 
   pointer-events: none;
 }
+
+/* Primeira etapa da saída */
+
 .carta.saindo {
   opacity: 1;
 
@@ -90,19 +111,40 @@ main {
     translateY(15px)
     scale(0.94);
 }
+
+/* Carta totalmente aberta */
+
 .carta.aberta {
   opacity: 1;
 
   z-index: 6;
 
-  transform:
-    translateY(-70px)
-    scale(1);
-
-  animation: respirar-carta 3.6s ease-in-out infinite;
+  animation:
+    respirar-carta 3.2s ease-in-out infinite;
 }
 
-/* CONJUNTO COMPLETO DO ENVELOPE */
+@keyframes respirar-carta {
+
+  0%,
+  100% {
+    transform:
+      translateY(-70px)
+      scale(1)
+      rotate(-0.2deg);
+  }
+
+  50% {
+    transform:
+      translateY(-72px)
+      scale(1.006)
+      rotate(0.2deg);
+  }
+
+}
+
+/* =========================
+   ENVELOPE
+========================= */
 
 .envelope-conjunto {
   position: absolute;
@@ -110,32 +152,12 @@ main {
   width: 530px;
   max-width: 96vw;
 
-  /*
-    As três imagens foram exportadas
-    no mesmo tamanho de página.
-  */
   aspect-ratio: 1 / 1;
 
   z-index: 2;
-
-  transition:
-    transform 1s ease,
-    opacity 1s ease;
 }
 
-/* Movimento atual de abertura */
-
-.envelope-conjunto.abrindo {
-  transform:
-    translateY(120px)
-    scale(0.92);
-
-  opacity: 0.9;
-
-  pointer-events: none;
-}
-
-/* CAMADAS DO ENVELOPE */
+/* CAMADAS */
 
 .envelope-base,
 .aba-envelope,
@@ -155,23 +177,29 @@ main {
   pointer-events: none;
 }
 
-/* Base inferior do envelope */
+/* BASE */
 
 .envelope-base {
   z-index: 1;
 
   filter:
-    drop-shadow(0 17px 27px rgba(0, 0, 0, 0.24));
+    drop-shadow(
+      0 17px 27px rgba(0, 0, 0, 0.24)
+    );
+
+  transition:
+    filter 0.3s ease;
 }
 
-/* Aba triangular superior */
+/* ABA */
 
 .aba-envelope {
   z-index: 2;
 
   transform-origin: top center;
 
-  transform: translateY(-36px);
+  transform:
+    translateY(-36px);
 
   backface-visibility: hidden;
 
@@ -179,6 +207,7 @@ main {
     transform 0.9s ease,
     opacity 0.6s ease;
 }
+
 .aba-envelope.aberta {
   transform:
     translateY(-72px)
@@ -187,26 +216,28 @@ main {
 
   z-index: 0;
 }
-/* Selo e cordão */
+
+/* SELO */
 
 .selo {
   z-index: 3;
 
   transition:
     transform 0.45s ease,
-    opacity 0.45s ease,
-    filter 0.3s ease;
+    opacity 0.45s ease;
 }
+
 .selo.abrindo {
+  opacity: 0;
 
-    opacity: 0;
-
-    transform:
-        scale(.72)
-        rotate(-18deg);
-
+  transform:
+    scale(0.72)
+    rotate(-18deg);
 }
-/* BOTÃO TRANSPARENTE SOBRE O SELO */
+
+/* =========================
+   ÁREA CLICÁVEL DO SELO
+========================= */
 
 .selo-botao {
   position: absolute;
@@ -219,7 +250,8 @@ main {
 
   padding: 0;
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%);
 
   border: 2px solid transparent;
   border-radius: 50%;
@@ -237,15 +269,14 @@ main {
     background 0.25s ease;
 }
 
-/* Destaque ao passar sobre o selo */
-
 .selo-botao:hover,
 .selo-botao:focus-visible {
   transform:
     translate(-46%, -50%)
     scale(1.08);
 
-  border-color: rgba(255, 248, 231, 0.75);
+  border-color:
+    rgba(255, 248, 231, 0.75);
 
   background:
     radial-gradient(
@@ -267,85 +298,24 @@ main {
     scale(0.95);
 }
 
-/* TEXTO DE ORIENTAÇÃO */
+/* =========================
+   RESPIRAÇÃO DO ENVELOPE
+========================= */
 
-.texto {
-  display: block;
-
-  width: fit-content;
-
-  margin: 12px auto 0;
-
-  padding: 10px 24px;
-
-  font-family: "Cormorant Garamond", serif;
-  font-size: 27px;
-  font-style: italic;
-  font-weight: 600;
-  letter-spacing: 1px;
-
-  color: var(--verde);
-
-  background: #faebd8;
-
-  border: 1px solid rgba(0, 52, 0, 0.25);
-  border-radius: 999px;
-
-  box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.24),
-    inset 0 1px 0 rgba(255, 255, 255, 0.65);
-
-  text-shadow:
-    0 1px 2px rgba(255, 255, 255, 0.75);
-
-  opacity: 1;
-
-  transition:
-    opacity 0.5s ease,
-    transform 0.5s ease,
-    box-shadow 0.3s ease;
-}
-.texto:hover {
-  animation: respirar-texto 1.3s ease-in-out infinite;
-
-  box-shadow:
-    0 12px 26px rgba(0, 0, 0, 0.28),
-    0 0 18px rgba(250, 235, 216, 0.75);
-}
-
-@keyframes respirar-texto {
-  0%,
-  100% {
-    transform: translateY(0) scale(1);
-  }
-
-  50% {
-    transform: translateY(-4px) scale(1.03);
-  }
-}
-.texto.sumindo {
-  opacity: 0;
-
-  transform: translateY(15px);
-
-  pointer-events: none;
-
-  animation: none;
-}
-
-/* RESPIRAÇÃO DO ENVELOPE */
-
-.envelope-conjunto:not(.abrindo):hover {
+.envelope-conjunto:not(.aberto):hover {
   animation:
     respirar-envelope 1.4s ease-in-out infinite;
 }
 
-.envelope-conjunto:not(.abrindo):hover .envelope-base {
+.envelope-conjunto:not(.aberto):hover .envelope-base {
   filter:
-    drop-shadow(0 24px 38px rgba(0, 0, 0, 0.3));
+    drop-shadow(
+      0 24px 38px rgba(0, 0, 0, 0.3)
+    );
 }
 
 @keyframes respirar-envelope {
+
   0%,
   100% {
     transform:
@@ -358,148 +328,127 @@ main {
       translateY(-7px)
       scale(1.02);
   }
-}
-/* Respiração suave da carta */
 
-.carta.aberta {
-  animation: respirar-carta 3.2s ease-in-out infinite;
 }
 
-@keyframes respirar-carta {
+/* =========================
+   TEXTO INICIAL
+========================= */
+
+.texto {
+  display: block;
+
+  width: fit-content;
+
+  margin:
+    12px auto 0;
+
+  padding:
+    10px 24px;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size: 27px;
+  font-style: italic;
+  font-weight: 600;
+
+  letter-spacing: 1px;
+
+  color: var(--verde);
+
+  background:
+    var(--papel-envelope);
+
+  border:
+    1px solid
+    rgba(0, 52, 0, 0.25);
+
+  border-radius: 999px;
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+
+  opacity: 1;
+
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease,
+    box-shadow 0.3s ease;
+}
+
+.texto:hover {
+  animation:
+    respirar-texto
+    1.3s
+    ease-in-out
+    infinite;
+
+  box-shadow:
+    0 12px 26px rgba(0, 0, 0, 0.28),
+    0 0 18px rgba(250, 235, 216, 0.75);
+}
+
+.texto.sumindo {
+  opacity: 0;
+
+  transform:
+    translateY(15px);
+
+  pointer-events: none;
+
+  animation: none;
+}
+
+@keyframes respirar-texto {
 
   0%,
   100% {
     transform:
-      translateY(-70px)
+      translateY(0)
       scale(1);
   }
 
   50% {
     transform:
-      translateY(-72px)
-      scale(1.006);
+      translateY(-4px)
+      scale(1.03);
   }
 
 }
-/* BOTÃO PARA ENTRAR NO SITE */
 
-.botao-site {
-  display: inline-block;
-
-  margin-top: 14px;
-  padding: 12px 28px;
-
-  font-family: "Cormorant Garamond", serif;
-  font-size: 25px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-
-  color: var(--verde);
-
-  background: #faebd8;
-
-  border: 1px solid rgba(0, 52, 0, 0.28);
-  border-radius: 999px;
-
-  box-shadow:
-    0 10px 24px rgba(0, 0, 0, 0.24),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
-
-  text-decoration: none;
-
-  opacity: 0;
-  transform: translateY(18px) scale(0.96);
-
-  pointer-events: none;
-
-  transition:
-    opacity 0.7s ease,
-    transform 0.7s ease,
-    box-shadow 0.3s ease;
-}
-
-.botao-site.visivel {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-
-  pointer-events: auto;
-}
-
-.botao-site:hover {
-  transform: translateY(-3px) scale(1.02);
-
-  box-shadow:
-    0 14px 30px rgba(0, 0, 0, 0.28),
-    0 0 18px rgba(250, 235, 216, 0.7);
-}
-/* BOTÃO PARA ENTRAR NO SITE */
-
-.botao-site {
-  display: inline-block;
-
-  margin-top: 14px;
-  padding: 12px 28px;
-
-  font-family: "Cormorant Garamond", serif;
-  font-size: 25px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-
-  color: var(--verde);
-
-  background: #faebd8;
-
-  border: 1px solid rgba(0, 52, 0, 0.28);
-  border-radius: 999px;
-
-  box-shadow:
-    0 10px 24px rgba(0, 0, 0, 0.24),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
-
-  text-decoration: none;
-
-  opacity: 0;
-  transform: translateY(18px) scale(0.96);
-
-  pointer-events: none;
-
-  transition:
-    opacity 0.7s ease,
-    transform 0.7s ease,
-    box-shadow 0.3s ease;
-}
-
-.botao-site.visivel {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-
-  pointer-events: auto;
-}
-
-.botao-site:hover {
-  transform: translateY(-3px) scale(1.02);
-
-  box-shadow:
-    0 14px 30px rgba(0, 0, 0, 0.28),
-    0 0 18px rgba(250, 235, 216, 0.7);
-}
-/* BOTÃO PARA ENTRAR NO SITE */
+/* =========================
+   BOTÃO DO SITE
+========================= */
 
 .botao-site {
   display: inline-block;
 
   margin-top: 18px;
-  padding: 12px 30px;
 
-  font-family: "Cormorant Garamond", serif;
+  padding:
+    12px 30px;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
   font-size: 24px;
   font-weight: 600;
+
   letter-spacing: 0.8px;
 
   color: var(--verde);
-  background: #faebd8;
 
-  border: 1px solid rgba(0, 52, 0, 0.3);
+  background:
+    var(--papel-envelope);
+
+  border:
+    1px solid
+    rgba(0, 52, 0, 0.3);
+
   border-radius: 999px;
 
   text-decoration: none;
@@ -509,7 +458,17 @@ main {
 
   opacity: 0;
 
-  transform: translateY(15px);
+  transform:
+    translateY(15px)
+    scale(0.96);
+
+  pointer-events: none;
+
+  cursor: pointer;
+
+  position: relative;
+
+  z-index: 20;
 
   transition:
     opacity 0.8s ease,
@@ -520,44 +479,43 @@ main {
 .botao-site.visivel {
   opacity: 1;
 
-  transform: translateY(0);
+  transform:
+    translateY(0)
+    scale(1);
+
+  pointer-events: auto;
 }
 
 .botao-site.visivel:hover {
-  transform: translateY(-3px) scale(1.03);
+  transform:
+    translateY(-3px)
+    scale(1.03);
 
   box-shadow:
-    0 12px 26px rgba(0, 0, 0, 0.28);
+    0 12px 26px rgba(0, 0, 0, 0.28),
+    0 0 18px rgba(250, 235, 216, 0.6);
 }
-/* TRANSIÇÃO DE SAÍDA DA PÁGINA */
 
-body.saindo-site {
-  opacity: 0;
-
-  transition:
-    opacity 0.45s ease;
-}
-/* CELULAR */
+/* =========================
+   CELULAR
+========================= */
 
 @media (max-width: 480px) {
+
   main {
     padding: 8px;
   }
 
   .area-convite {
     width: 100%;
+
     height: 520px;
   }
 
   .envelope-conjunto {
     width: 395px;
-    max-width: 96vw;
-  }
 
-  .envelope-conjunto.abrindo {
-    transform:
-      translateY(90px)
-      scale(0.92);
+    max-width: 96vw;
   }
 
   .selo-botao {
@@ -569,6 +527,7 @@ body.saindo-site {
 
   .carta {
     width: 310px;
+
     max-width: 77vw;
 
     transform:
@@ -576,16 +535,47 @@ body.saindo-site {
       scale(0.88);
   }
 
-  .carta.aberta {
+  .carta.saindo {
     transform:
-      translateY(-55px)
-      scale(1);
+      translateY(10px)
+      scale(0.94);
+  }
+
+  @keyframes respirar-carta {
+
+    0%,
+    100% {
+      transform:
+        translateY(-55px)
+        scale(1)
+        rotate(-0.2deg);
+    }
+
+    50% {
+      transform:
+        translateY(-57px)
+        scale(1.006)
+        rotate(0.2deg);
+    }
+
   }
 
   .texto {
     margin-top: 4px;
-    padding: 8px 19px;
+
+    padding:
+      8px 19px;
 
     font-size: 22px;
   }
+
+  .botao-site {
+    margin-top: 10px;
+
+    padding:
+      10px 24px;
+
+    font-size: 21px;
+  }
+
 }
