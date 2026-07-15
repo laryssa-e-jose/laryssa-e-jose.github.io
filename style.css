@@ -101,7 +101,6 @@ main {
     translateY(-70px)
     scale(1);
 
-  animation: respirar-carta 3.6s ease-in-out infinite;
 }
 
 /* CONJUNTO COMPLETO DO ENVELOPE */
@@ -367,11 +366,9 @@ main {
 }
 
 /* RESPIRAÇÃO SUAVE DA CARTA */
-
-.carta.aberta {
+.carta.aberta.respirando {
   animation: respirar-carta 3.2s ease-in-out infinite;
 }
-
 @keyframes respirar-carta {
   0%,
   100% {

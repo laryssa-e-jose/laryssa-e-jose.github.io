@@ -27,10 +27,14 @@ seloBotao.addEventListener("click", function () {
     carta.classList.add("saindo");
   }, 950);
 
-  setTimeout(function () {
-    carta.classList.remove("saindo");
-    carta.classList.add("aberta");
-  }, 1500);
+setTimeout(function () {
+  carta.classList.remove("saindo");
+  carta.classList.add("aberta");
+}, 1500);
+
+setTimeout(function () {
+  carta.classList.add("respirando");
+}, 2800);
 
   setTimeout(function () {
     botaoSite.hidden = false;
