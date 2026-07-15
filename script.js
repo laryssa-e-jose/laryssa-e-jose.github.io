@@ -3,7 +3,7 @@ const selo = document.querySelector("#selo");
 const abaEnvelope = document.querySelector("#aba-envelope");
 const carta = document.querySelector("#carta");
 const texto = document.querySelector("#texto");
-
+const botaoSite = document.querySelector("#botao-site");
 let conviteAberto = false;
 
 seloBotao.addEventListener("click", function () {
@@ -35,5 +35,13 @@ seloBotao.addEventListener("click", function () {
     carta.classList.remove("saindo");
     carta.classList.add("aberta");
   }, 1500);
+  
+setTimeout(function () {
+  botaoSite.hidden = false;
 
+  setTimeout(function () {
+    botaoSite.classList.add("visivel");
+  }, 50);
+
+}, 2300);
 });
