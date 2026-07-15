@@ -62,3 +62,9 @@ botaoSite.addEventListener("click", function (event) {
     window.location.href = destino;
   }, 450);
 });
+
+
+window.addEventListener("load", function () {
+  document.body.classList.remove("carregando");
+  document.body.classList.add("pronto");
+});

@@ -30,6 +30,17 @@ body {
   overflow: hidden;
 }
 
+body.carregando {
+  opacity: 0;
+}
+
+body.pronto {
+  opacity: 1;
+
+  transition:
+    opacity 0.7s ease;
+}
+
 main {
   width: 100%;
   padding: 20px;
